@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MenuPrincipal extends AppCompatActivity {
     //MENU PRINCIPAL DE LA APP
-    //PRUEBAMOISES
+    //PRUEBA 1
     Button btnRegistroMaterias, btnRegistroActividades, btnControlCalificaciones,
             btnMaterias,btnActividades,btnCalificaciones,btnSalir;
 
