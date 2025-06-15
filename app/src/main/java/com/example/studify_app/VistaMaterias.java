@@ -19,7 +19,7 @@ public class VistaMaterias extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.vista_materias);
 
-        SpinVistaMaterias = findViewById(R.id.SpinVistaCategorias);
+        SpinVistaMaterias = findViewById(R.id.SpinnerMaterias);
         txtvProfesor = findViewById(R.id.txtvTitutoCalificaciones);
         txtvHorario = findViewById(R.id.txtvFechaEntrega);
 
