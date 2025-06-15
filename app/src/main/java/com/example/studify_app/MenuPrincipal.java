@@ -8,6 +8,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MenuPrincipal extends AppCompatActivity {
+    //MENU PRINCIPAL DE LA APP
     Button btnRegistroMaterias, btnRegistroActividades, btnControlCalificaciones,
             btnMaterias,btnActividades,btnCalificaciones,btnSalir;
 
