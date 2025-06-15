@@ -10,8 +10,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class VistaCalificaciones extends AppCompatActivity {
-    Spinner SpinMateriaVistaCalificaciones;
-    TextView txtvNotas;
+
     Button btnRMenuPrincipal7;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,9 +18,6 @@ public class VistaCalificaciones extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.vista_calificaciones);
 
-        SpinMateriaVistaCalificaciones = findViewById(R.id.SpinMateriasVistaCalificiones);
-
-        txtvNotas = findViewById(R.id.txtvNotas);
 
 
 
