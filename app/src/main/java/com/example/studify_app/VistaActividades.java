@@ -20,7 +20,7 @@ public class VistaActividades extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.vista_actividades);
 
-        SpinVistaCategorias = findViewById(R.id.SpinVistaCategorias);
+        SpinVistaCategorias = findViewById(R.id.SpinnerMaterias);
         txtvNombreActividad = findViewById(R.id.txtvTitutoCalificaciones);
         txtvFechaEntrega = findViewById(R.id.txtvFechaEntrega);
         txtvMateria = findViewById(R.id.txtvMateria);
