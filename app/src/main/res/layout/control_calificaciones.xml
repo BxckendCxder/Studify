@@ -5,15 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Spinner
-        android:id="@+id/SpinlaboratorioParcial"
-        android:layout_width="350dp"
-        android:layout_height="60dp"
-        android:layout_marginBottom="120dp"
+
+    <EditText
+        android:id="@+id/edtxtNombreActividad"
+        android:layout_width="348dp"
+        android:layout_height="47dp"
+        android:layout_marginBottom="28dp"
+        android:hint="Nombre de la actividad"
+        android:inputType="text"
         app:layout_constraintBottom_toTopOf="@+id/edtxtPonderacion"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SpinnerMaterias"
+        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
         android:id="@+id/edtxtNota"
@@ -90,7 +95,7 @@
         android:id="@+id/SpinnerMaterias"
         android:layout_width="350dp"
         android:layout_height="60dp"
-        android:layout_marginBottom="25dp"
+        android:layout_marginBottom="100dp"
         app:layout_constraintBottom_toTopOf="@+id/edtxtPonderacion"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.508"
