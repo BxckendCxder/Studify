@@ -14,8 +14,11 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.android.volley.*;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -58,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
                 // URL del servidor
                 String url = "http://192.168.0.12:5000/buscarUsuario";
-                /*
+
                 // Crear la solicitud
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                         Request.Method.POST,
@@ -69,8 +72,15 @@ public class MainActivity extends AppCompatActivity {
                             public void onResponse(JSONObject response) {
                                 try {
                                     String respuesta = response.get("EstadoComms").toString();
-                                    txtSalida.setText(respuesta);
-                                    Log.d("RESPONSE", respuesta);
+                                    if(respuesta.equals("UsuarioExiste")){
+                                        Toast.makeText(MainActivity.this, String.valueOf("Ingresando"), Toast.LENGTH_LONG).show();
+                                        Log.d("RESPONSE", respuesta);
+                                        Intent intent = new Intent(MainActivity.this, MenuPrincipal.class);
+                                        startActivity(intent);
+                                        finish(); // opcional: para cerrar esta pantalla
+                                    }else{
+                                        Toast.makeText(MainActivity.this, String.valueOf("Las credenciales ingresadas son incorrectas"), Toast.LENGTH_LONG).show();
+                                    }
                                 }catch(Exception e){
                                     Log.d("ERROR", e.toString());
                                 }
@@ -93,12 +103,6 @@ public class MainActivity extends AppCompatActivity {
                 };
                 RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
                 queue.add(jsonObjectRequest);
-                */
-
-
-                Intent intent = new Intent(MainActivity.this, MenuPrincipal.class);
-                startActivity(intent);
-                finish(); // opcional: para cerrar esta pantalla
             }else {
                 Toast.makeText(this, "Rellena todos los campos",Toast.LENGTH_SHORT).show();
             }
