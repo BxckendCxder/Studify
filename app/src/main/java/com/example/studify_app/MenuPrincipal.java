@@ -34,7 +34,7 @@ public class MenuPrincipal extends AppCompatActivity {
 
         btnRegistroActividades.setOnClickListener(view -> {
             startActivity(new Intent(this, RegistroActividades.class));
-        });
+        });//ACCION CUANDO USUARIO CLIQUEE BTN REGISTRO ACTIVIDADES
 
         btnControlCalificaciones.setOnClickListener(view -> {
             startActivity(new Intent(this, ControlCalificaciones.class));
