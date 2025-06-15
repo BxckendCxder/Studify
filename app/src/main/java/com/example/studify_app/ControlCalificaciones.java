@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class ControlCalificaciones extends AppCompatActivity {
 
-    Spinner SpinnerMaterias;
+    Spinner SpinnerMaterias,SpinlaboratorioParcial;
     EditText edtxtPonderacion, edtxtNota;
     Button btnGuardarCalificacion, btnRMenuPrincipal4;
     TextView txtvGuardarCalificacion;
@@ -25,6 +25,7 @@ public class ControlCalificaciones extends AppCompatActivity {
 
         btnRMenuPrincipal4 = findViewById(R.id.btnRMenuPrincipal4);
         SpinnerMaterias = findViewById(R.id.SpinnerMaterias);
+        SpinlaboratorioParcial = findViewById(R.id.SpinlaboratorioParcial);
         edtxtPonderacion = findViewById(R.id.edtxtPonderacion);
         edtxtNota = findViewById(R.id.edtxtNota);
 

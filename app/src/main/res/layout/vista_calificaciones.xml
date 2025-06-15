@@ -18,6 +18,47 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.128" />
 
+
+    <TableLayout
+        android:id="@+id/tableCalificaciones"
+        android:layout_width="363dp"
+        android:layout_height="79dp"
+        android:padding="16dp"
+        android:stretchColumns="*"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.273">
+
+        <!-- Encabezado -->
+        <TableRow>
+
+            <TextView
+                android:text="Actividad"
+                android:textStyle="bold" />
+
+            <TextView
+                android:text="Nota"
+                android:textStyle="bold" />
+
+            <TextView
+                android:text="Ponderación"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <!-- Fila de ejemplo -->
+        <TableRow>
+
+            <TextView android:text="Laboratorio 1" />
+
+            <TextView android:text="9.5" />
+
+            <TextView android:text="20%" />
+        </TableRow>
+    </TableLayout>
+
     <Button
         android:id="@+id/btnRMenuPrincipal4"
         app:layout_constraintBottom_toBottomOf="parent"
