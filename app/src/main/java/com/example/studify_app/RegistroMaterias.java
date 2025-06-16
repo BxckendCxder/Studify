@@ -54,6 +54,8 @@ public class RegistroMaterias extends AppCompatActivity {
 
         btnMenuprincipal2.setOnClickListener(view -> {
             Intent intent1 = new Intent(RegistroMaterias.this, MenuPrincipal.class);
+            intent1.putExtra("usuario", usuario);
+            intent1.putExtra("password", pass);
             startActivity(intent1);
             finish(); // opcional: para cerrar esta pantalla
         });
