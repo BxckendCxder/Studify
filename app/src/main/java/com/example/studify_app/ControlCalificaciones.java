@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,10 +46,10 @@ public class ControlCalificaciones extends AppCompatActivity {
             String Ponderacion = edtxtPonderacion.getText().toString().trim();
 
             // Validación
-            if (Materia.isEmpty() || NombreActividad.isEmpty() || Nota.isEmpty() || Ponderacion.isEmpty()) {
-                txtvGuardarCalificacion.setText("Por favor, completa todos los campos.");
+            if (!Materia.isEmpty() && !NombreActividad.isEmpty() && !Nota.isEmpty() && !Ponderacion.isEmpty()) {
+                Toast.makeText(this, "Actividad guardada correctamente.",Toast.LENGTH_SHORT).show();
             } else {
-                txtvGuardarCalificacion.setText("Calificación guardada correctamente.");
+                Toast.makeText(this, "Por favor, completa todos los campos.",Toast.LENGTH_SHORT).show();
 
                 // Aquí podrías crear el objeto Calificacion
                 double nota = Double.parseDouble(Nota);

@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +16,7 @@ public class RegistroActividades extends AppCompatActivity {
     Spinner SpinCategoria,SpinMateria;
     EditText edtxtDescripcion,edtxtFechaEntrega;
     Button btnRegistroActividad, btnMenuPrincipal3;
+    TextView txtvResultado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,14 +34,30 @@ public class RegistroActividades extends AppCompatActivity {
         SpinCategoria = findViewById(R.id.SpinCategoria);
         SpinMateria = findViewById(R.id.SpinMateria);
 
-        btnMenuPrincipal3.setOnClickListener(view -> {
+        txtvResultado =findViewById(R.id.txtvResultadoGuardarCalificacion);
+
+        btnRegistroActividad.setOnClickListener(view -> {
+            String DescripcionString = edtxtDescripcion.getText().toString().trim();
+            String FechaEntregaString = edtxtFechaEntrega.getText().toString().trim();
+            String CategoriaString = SpinCategoria.getSelectedItem().toString().trim();
+            String MateriaString = SpinMateria.getSelectedItem().toString().trim();
+
+
+            // Validación
+            if (!DescripcionString.isEmpty() && !FechaEntregaString.isEmpty() && !CategoriaString.isEmpty() && !MateriaString.isEmpty()) {
+                Toast.makeText(this, "Actividad guardada correctamente.",Toast.LENGTH_SHORT).show();
+
+            } else {
+                Toast.makeText(this, "Por favor, completa todos los campos.",Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        btnMenuPrincipal3.setOnClickListener(view ->{
             Intent intent = new Intent(RegistroActividades.this, MenuPrincipal.class);
             startActivity(intent);
             finish(); // opcional: para cerrar esta pantalla
         });
-
-
-
     }
 
 }
