@@ -43,11 +43,7 @@ public class RegisterActivity extends AppCompatActivity {
       edtxtContrasena2 = findViewById(R.id.edtxContrasena2);
       edtxtContrasenaConfirm = findViewById(R.id.edtxtcontrasenaConfirm);
 
-        txtvEstado = findViewById(R.id.txtvEstado);
-
-
-
-
+      txtvEstado = findViewById(R.id.txtvEstado);
 
       btnRegistrar = findViewById(R.id.btnRegistrar);
       btnRegSalir =findViewById(R.id.btnRegSalir);
@@ -135,10 +131,14 @@ public class RegisterActivity extends AppCompatActivity {
                     RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
                     queue.add(jsonObjectRequest);
                 }else{
-                    //ERROR PASSWORDS DISTINTAS
+                    //ERROR PASSWORDS DISTINT
+                    Toast.makeText(RegisterActivity.this, String.valueOf("Las contraseñas no coinciden"), Toast.LENGTH_LONG).show();
+                    edtxtContrasena2.setText("");
+                    edtxtContrasenaConfirm.setText("");
                 }
             }else{
                 //ERROR CAMPOS VACIOS
+                Toast.makeText(RegisterActivity.this, String.valueOf("Ningún campo debe estar vacio"), Toast.LENGTH_LONG).show();
                 Log.d("ERROR", "CAMPOS VACIOS");
             }
 
