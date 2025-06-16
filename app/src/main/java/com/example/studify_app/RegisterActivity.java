@@ -93,7 +93,14 @@ public class RegisterActivity extends AppCompatActivity {
                                         if (respuesta.equals("UsuarioExiste")) {
                                             txtvEstado.setText("Este usuario ya existe, por favor contacte al administrador");
                                         } else {
-
+                                            String usuarioGenerado = response.get("NombreUsuario").toString();
+                                            txtvEstado.setText("Registro Exitoso. \nSu usuario es: " + usuarioGenerado + "\nLa contraseña es la que usted ingresó");
+                                            edtxtNombreUsuario.setText("");
+                                            edtxtFechaNacimiento.setText("");
+                                            edtxtTelefono.setText("");
+                                            edtxtDUI.setText("");
+                                            edtxtContrasena2.setText("");
+                                            edtxtContrasenaConfirm.setText("");
                                         }
                                     } catch (Exception e) {
                                         Log.d("ERROR", e.toString());
@@ -133,7 +140,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         });
         btnRegSalir.setOnClickListener(view -> {
-            startActivity(new Intent(this, RegisterActivity.class));
+            startActivity(new Intent(this, MainActivity.class));
             finish(); // opcional: para cerrar esta pantalla
         });
 

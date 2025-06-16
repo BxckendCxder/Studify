@@ -50,7 +50,6 @@
         android:layout_width="321dp"
         android:layout_height="53dp"
         android:hint="Fecha de nacimiento"
-        android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.322"
@@ -98,15 +97,17 @@
 
     <TextView
         android:id="@+id/txtvEstado"
-        android:layout_width="92dp"
-        android:layout_height="26dp"
-        android:text="Estado"
+        android:layout_width="344dp"
+        android:layout_height="88dp"
+        android:text=""
+        android:textColor="#142CDE"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.325"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.834" />
+        app:layout_constraintVertical_bias="0.883" />
 
     <Button
         android:id="@+id/btnRegSalir"
@@ -115,10 +116,10 @@
         android:text="Salir"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.915"
+        app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.963" />
+        app:layout_constraintVertical_bias="0.976" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
