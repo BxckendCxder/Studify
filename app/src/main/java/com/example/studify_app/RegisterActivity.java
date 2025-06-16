@@ -45,6 +45,10 @@ public class RegisterActivity extends AppCompatActivity {
 
         txtvEstado = findViewById(R.id.txtvEstado);
 
+
+
+
+
       btnRegistrar = findViewById(R.id.btnRegistrar);
       btnRegSalir =findViewById(R.id.btnRegSalir);
 
