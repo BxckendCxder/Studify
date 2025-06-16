@@ -21,9 +21,9 @@ public class MenuPrincipal extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.menu_principal);
 
-        Intent intent = getIntent();
-        usuario = intent.getStringExtra("usuario");
-        pass = intent.getStringExtra("password");
+        Intent intent1 = getIntent();
+        usuario = intent1.getStringExtra("usuario");
+        pass = intent1.getStringExtra("password");
 
         btnRegistroMaterias = findViewById(R.id.btnRegistroMaterias);
         btnRegistroActividades = findViewById(R.id.btnRegistroActividades);
@@ -35,7 +35,10 @@ public class MenuPrincipal extends AppCompatActivity {
 
 
         btnRegistroMaterias.setOnClickListener(view -> {
-            startActivity(new Intent(this, RegistroMaterias.class));
+            Intent intent = new Intent(MenuPrincipal.this, RegistroMaterias.class);
+            intent.putExtra("usuario", usuario);
+            intent.putExtra("password", pass);
+            startActivity(intent);
         }); //ACCION CUANDO USUARIO CLIQUEE EN BTN REGISTRO MATERIAS
 
         btnRegistroActividades.setOnClickListener(view -> {

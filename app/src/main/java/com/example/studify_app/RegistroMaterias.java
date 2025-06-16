@@ -38,9 +38,9 @@ public class RegistroMaterias extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.registro_materias);
 
-        Intent intent1 = getIntent();
-        usuario = intent1.getStringExtra("usuario");
-        pass = intent1.getStringExtra("password");
+        Intent intent = getIntent();
+        usuario = intent.getStringExtra("usuario");
+        pass = intent.getStringExtra("password");
 
         edtxtNombreMateria = findViewById(R.id.edtxtNombreMateria);
         edtxtNombreProfesor = findViewById(R.id.edtxtPonderacion);
@@ -53,8 +53,8 @@ public class RegistroMaterias extends AppCompatActivity {
 
 
         btnMenuprincipal2.setOnClickListener(view -> {
-            Intent intent = new Intent(RegistroMaterias.this, MenuPrincipal.class);
-            startActivity(intent);
+            Intent intent1 = new Intent(RegistroMaterias.this, MenuPrincipal.class);
+            startActivity(intent1);
             finish(); // opcional: para cerrar esta pantalla
         });
 
@@ -87,8 +87,22 @@ public class RegistroMaterias extends AppCompatActivity {
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
-
-
+                                try{
+                                    String respuesta = response.get("EstadoComms").toString();
+                                    if (respuesta.equals("Materia agregada correctamente")){
+                                        Toast.makeText(RegistroMaterias.this, String.valueOf("La materia fue agregada exitosamente"), Toast.LENGTH_LONG).show();
+                                        edtxtNombreMateria.setText("");
+                                        edtxtNombreProfesor.setText("");
+                                        edtxtHorario.setText("");
+                                    }else{
+                                        Toast.makeText(RegistroMaterias.this, String.valueOf("Ocurrió un error"), Toast.LENGTH_LONG).show();
+                                        edtxtNombreMateria.setText("");
+                                        edtxtNombreProfesor.setText("");
+                                        edtxtHorario.setText("");
+                                    }
+                                }catch (Exception e){
+                                    Log.d("ERROR", e.toString());
+                                }
                             }
                         },
                         new Response.ErrorListener() {
@@ -117,6 +131,7 @@ public class RegistroMaterias extends AppCompatActivity {
 
             }else{
                 //CAMPOS VACIOS
+                Toast.makeText(RegistroMaterias.this, String.valueOf("Los campos no pueden estar vacios"), Toast.LENGTH_LONG).show();
             }
 
         });
