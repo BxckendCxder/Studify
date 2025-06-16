@@ -76,6 +76,8 @@ public class MainActivity extends AppCompatActivity {
                                         Toast.makeText(MainActivity.this, String.valueOf("Ingresando"), Toast.LENGTH_LONG).show();
                                         Log.d("RESPONSE", respuesta);
                                         Intent intent = new Intent(MainActivity.this, MenuPrincipal.class);
+                                        intent.putExtra("usuario", usuario);
+                                        intent.putExtra("password", pass);
                                         startActivity(intent);
                                         finish(); // opcional: para cerrar esta pantalla
                                     }else{
@@ -91,6 +93,12 @@ public class MainActivity extends AppCompatActivity {
                             public void onErrorResponse(VolleyError error) {
                                 // Manejar error
                                 Log.e("ERROR", error.toString());
+                                if((error.toString()).equals("com.android.volley.TimeoutError")){
+                                    Toast.makeText(MainActivity.this, String.valueOf("El tiempo de espera para conectarse a la DB ha expirado"), Toast.LENGTH_LONG).show();
+                                }else{
+                                    String errorDesc = "Error desconocido; ".concat(error.toString());
+                                    Toast.makeText(MainActivity.this, String.valueOf(errorDesc), Toast.LENGTH_LONG).show();
+                                }
                             }
                         }
                 ) {
