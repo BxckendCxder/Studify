@@ -76,6 +76,8 @@ public class MainActivity extends AppCompatActivity {
                                         Toast.makeText(MainActivity.this, String.valueOf("Ingresando"), Toast.LENGTH_LONG).show();
                                         Log.d("RESPONSE", respuesta);
                                         Intent intent = new Intent(MainActivity.this, MenuPrincipal.class);
+                                        intent.putExtra("usuario", usuario);
+                                        intent.putExtra("password", pass);
                                         startActivity(intent);
                                         finish(); // opcional: para cerrar esta pantalla
                                     }else{

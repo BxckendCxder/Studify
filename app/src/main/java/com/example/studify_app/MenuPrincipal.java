@@ -3,6 +3,7 @@ package com.example.studify_app;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,11 +14,17 @@ public class MenuPrincipal extends AppCompatActivity {
     Button btnRegistroMaterias, btnRegistroActividades, btnControlCalificaciones,
             btnMaterias,btnActividades,btnCalificaciones,btnSalir;
 
+    String usuario, pass;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.menu_principal);
+
+        Intent intent = getIntent();
+        usuario = intent.getStringExtra("usuario");
+        pass = intent.getStringExtra("password");
 
         btnRegistroMaterias = findViewById(R.id.btnRegistroMaterias);
         btnRegistroActividades = findViewById(R.id.btnRegistroActividades);
