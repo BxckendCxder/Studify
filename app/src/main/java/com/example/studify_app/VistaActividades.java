@@ -32,7 +32,7 @@ public class VistaActividades extends AppCompatActivity {
         btnRMenuPrincipal6.setOnClickListener(view -> {
             Intent intent = new Intent(VistaActividades.this, MenuPrincipal.class);
             startActivity(intent);
-            finish(); // opcional: para cerrar esta pantalla
+            finish();
         });
 
 
