@@ -49,8 +49,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         btnRegistrar = findViewById(R.id.btnRegistrar);
         btnRegSalir =findViewById(R.id.btnRegSalir);
-
-
         btnRegistrar.setOnClickListener(view -> {
             String nombre, fechaDNacimiento, telefono, dui, pass1, pass2;
 
@@ -118,11 +116,5 @@ public class RegisterActivity extends AppCompatActivity {
             startActivity(new Intent(this, MainActivity.class));
             finish(); // opcional: para cerrar esta pantalla
         });
-
-
-
     }
-
-
-
 }
