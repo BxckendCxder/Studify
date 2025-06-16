@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -11,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class VistaCalificaciones extends AppCompatActivity {
 
+
+    TableLayout tableCalificaciones;
     Button btnRMenuPrincipal7;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,9 +23,8 @@ public class VistaCalificaciones extends AppCompatActivity {
 
 
 
-
-
         btnRMenuPrincipal7 = findViewById(R.id.btnRMenuPrincipal4);
+        tableCalificaciones = findViewById(R.id.tableCalificaciones);
 
         btnRMenuPrincipal7.setOnClickListener(view -> {
             Intent intent = new Intent(VistaCalificaciones.this, MenuPrincipal.class);
