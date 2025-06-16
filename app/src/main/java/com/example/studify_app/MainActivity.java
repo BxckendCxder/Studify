@@ -10,9 +10,6 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.android.volley.*;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -41,7 +38,8 @@ public class MainActivity extends AppCompatActivity {
         btnlogin = findViewById(R.id.btnlogin);
         txtvSignin = findViewById(R.id.txtvSignin);
 
-        txtvSignin.setOnClickListener(view ->{ Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+        txtvSignin.setOnClickListener(view ->{
+            Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
             startActivity(intent);
 
         });
@@ -60,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 // URL del servidor
-                String url = "http://192.168.0.12:5000/buscarUsuario";
+                String url = "http://192.168.0.12:5000/login";
 
                 // Crear la solicitud
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
