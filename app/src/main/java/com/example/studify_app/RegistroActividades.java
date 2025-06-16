@@ -2,6 +2,7 @@ package com.example.studify_app;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -35,6 +36,14 @@ public class RegistroActividades extends AppCompatActivity {
         SpinMateria = findViewById(R.id.SpinMateria);
 
         txtvResultado =findViewById(R.id.txtvResultadoGuardarCalificacion);
+
+
+        String[] actividadesAcademicas = {"Tarea", "Laboratorio", "Parcial", "Proyecto","Exposición"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, actividadesAcademicas);
+        SpinCategoria.setAdapter(adapter);
+
+
+
 
         btnRegistroActividad.setOnClickListener(view -> {
             String DescripcionString = edtxtDescripcion.getText().toString().trim();
