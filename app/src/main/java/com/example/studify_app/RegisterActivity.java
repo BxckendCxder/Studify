@@ -72,7 +72,7 @@ public class RegisterActivity extends AppCompatActivity {
                     params.put("DUI", dui);
                     params.put("Password", pass1);
 
-                    ControladorVolley.postJSON("/login", params, new ControladorVolley.VolleyCallback() {
+                    ControladorVolley.postJSON("/buscarUserPorDUI", params, new ControladorVolley.VolleyCallback() {
                         @Override
                         public void onSuccess(JSONObject response) {
                             // Maneja la respuesta exitosa
