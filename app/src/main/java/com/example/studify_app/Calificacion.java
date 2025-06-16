@@ -2,7 +2,7 @@ package com.example.studify_app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Calificacion extends AppCompatActivity {
+public class Calificacion  {
     private String nombre;
     private double nota;
     private double ponderacion;
