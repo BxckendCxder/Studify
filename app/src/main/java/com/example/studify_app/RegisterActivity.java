@@ -36,17 +36,19 @@ public class RegisterActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_register);
 
-      edtxtNombreUsuario = findViewById(R.id.edtxtNombreUsuario);
-      edtxtFechaNacimiento = findViewById(R.id.edtxtFechanacimiento);
-      edtxtTelefono =findViewById(R.id.edtxtTelefono);
-      edtxtDUI = findViewById(R.id.edtxtDUI);
-      edtxtContrasena2 = findViewById(R.id.edtxContrasena2);
-      edtxtContrasenaConfirm = findViewById(R.id.edtxtcontrasenaConfirm);
+        ControladorVolley.init(getApplicationContext());
 
-      txtvEstado = findViewById(R.id.txtvEstado);
+        edtxtNombreUsuario = findViewById(R.id.edtxtNombreUsuario);
+        edtxtFechaNacimiento = findViewById(R.id.edtxtFechanacimiento);
+        edtxtTelefono =findViewById(R.id.edtxtTelefono);
+        edtxtDUI = findViewById(R.id.edtxtDUI);
+        edtxtContrasena2 = findViewById(R.id.edtxContrasena2);
+        edtxtContrasenaConfirm = findViewById(R.id.edtxtcontrasenaConfirm);
 
-      btnRegistrar = findViewById(R.id.btnRegistrar);
-      btnRegSalir =findViewById(R.id.btnRegSalir);
+        txtvEstado = findViewById(R.id.txtvEstado);
+
+        btnRegistrar = findViewById(R.id.btnRegistrar);
+        btnRegSalir =findViewById(R.id.btnRegSalir);
 
 
         btnRegistrar.setOnClickListener(view -> {
@@ -65,71 +67,41 @@ public class RegisterActivity extends AppCompatActivity {
                     !dui.isEmpty() && !pass1.isEmpty() && !pass2.isEmpty()){
                 //CAMPOS NO VACIOS
                 if(pass1.equals(pass2)) {
-                    //SI LAS PASS COINCIDEN
-                    JSONObject postData = new JSONObject();
-                    try {
-                        postData.put("Nombre", nombre);
-                        postData.put("FechaDNacimiento", fechaDNacimiento);
-                        postData.put("telefono", telefono);
-                        postData.put("DUI", dui);
-                        postData.put("Password", pass1);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                    Map<String, String> params = new HashMap<>();
+                    params.put("Nombre", nombre);
+                    params.put("FechaDNacimiento", fechaDNacimiento);
+                    params.put("telefono", telefono);
+                    params.put("DUI", dui);
+                    params.put("Password", pass1);
 
-                    // URL del servidor
-                    String url = "http://192.168.0.12:5000/buscarUserPorDUI";
-
-                    // Crear la solicitud
-                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-                            Request.Method.POST,
-                            url,
-                            postData,
-                            new Response.Listener<JSONObject>() {
-                                @Override
-                                public void onResponse(JSONObject response) {
-                                    try {
-                                        String respuesta = response.get("EstadoComms").toString();
-                                        if (respuesta.equals("UsuarioExiste")) {
-                                            txtvEstado.setText("Este usuario ya existe, por favor contacte al administrador");
-                                        } else {
-                                            String usuarioGenerado = response.get("NombreUsuario").toString();
-                                            txtvEstado.setText("Registro Exitoso. \nSu usuario es: " + usuarioGenerado + "\nLa contraseña es la que usted ingresó");
-                                            edtxtNombreUsuario.setText("");
-                                            edtxtFechaNacimiento.setText("");
-                                            edtxtTelefono.setText("");
-                                            edtxtDUI.setText("");
-                                            edtxtContrasena2.setText("");
-                                            edtxtContrasenaConfirm.setText("");
-                                        }
-                                    } catch (Exception e) {
-                                        Log.d("ERROR", e.toString());
-                                    }
-                                }
-                            },
-                            new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    // Manejar error
-                                    Log.e("ERROR", error.toString());
-                                    if ((error.toString()).equals("com.android.volley.TimeoutError")) {
-                                        Toast.makeText(RegisterActivity.this, String.valueOf("El tiempo de espera para conectarse a la DB ha expirado"), Toast.LENGTH_LONG).show();
-                                    } else {
-                                        String errorDesc = "Error desconocido; ".concat(error.toString());
-                                        Toast.makeText(RegisterActivity.this, String.valueOf(errorDesc), Toast.LENGTH_LONG).show();
-                                    }
-                                }
-                            }
-                    ) {
+                    ControladorVolley.postJSON("/login", params, new ControladorVolley.VolleyCallback() {
                         @Override
-                        public Map<String, String> getHeaders() {
-                            Map<String, String> headers = new HashMap<>();
-                            headers.put("Content-Type", "application/json");
-                            return headers;
+                        public void onSuccess(JSONObject response) {
+                            // Maneja la respuesta exitosa
+                            try {
+                                String respuesta = response.get("EstadoComms").toString();
+                                if (respuesta.equals("UsuarioExiste")) {
+                                    txtvEstado.setText("Este usuario ya existe, por favor contacte al administrador");
+                                } else {
+                                    String usuarioGenerado = response.get("NombreUsuario").toString();
+                                    txtvEstado.setText("Registro Exitoso. \nSu usuario es: " + usuarioGenerado + "\nLa contraseña es la que usted ingresó");
+                                    edtxtNombreUsuario.setText("");
+                                    edtxtFechaNacimiento.setText("");
+                                    edtxtTelefono.setText("");
+                                    edtxtDUI.setText("");
+                                    edtxtContrasena2.setText("");
+                                    edtxtContrasenaConfirm.setText("");
+                                }
+                            } catch (Exception e) {
+                                Log.d("ERROR", e.toString());
+                            }
                         }
-                    };
-                    RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
-                    queue.add(jsonObjectRequest);
+                        @Override
+                        public void onError(JSONObject error) {
+                            // Maneja el error
+                            Log.e("ERROR", error.toString());
+                        }
+                    });
                 }else{
                     //ERROR PASSWORDS DISTINT
                     Toast.makeText(RegisterActivity.this, String.valueOf("Las contraseñas no coinciden"), Toast.LENGTH_LONG).show();
@@ -141,7 +113,6 @@ public class RegisterActivity extends AppCompatActivity {
                 Toast.makeText(RegisterActivity.this, String.valueOf("Ningún campo debe estar vacio"), Toast.LENGTH_LONG).show();
                 Log.d("ERROR", "CAMPOS VACIOS");
             }
-
         });
         btnRegSalir.setOnClickListener(view -> {
             startActivity(new Intent(this, MainActivity.class));

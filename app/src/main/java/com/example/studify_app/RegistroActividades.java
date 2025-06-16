@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -16,7 +17,11 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONObject;
+
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegistroActividades extends AppCompatActivity {
     private DatePickerDialog datePickerDialog;
@@ -37,6 +42,8 @@ public class RegistroActividades extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.registro_actividades);
+
+        ControladorVolley.init(getApplicationContext());
 
         Intent intent1 = getIntent();
         usuario = intent1.getStringExtra("usuario");
@@ -74,37 +81,38 @@ public class RegistroActividades extends AppCompatActivity {
             String DescripcionString = edtxtDescripcion.getText().toString().trim();
             String CategoriaString = SpinCategoria.getSelectedItem().toString().trim();
             String MateriaString = SpinMateria.getSelectedItem().toString().trim();
+            String fecha = getSelectedDate();
 
 
             // Validación
-            if (!DescripcionString.isEmpty() && !CategoriaString.isEmpty() && !MateriaString.isEmpty()) {
+            if (!DescripcionString.isEmpty() && !CategoriaString.isEmpty() && !MateriaString.isEmpty() ) {
                 //CAMPOS COMPLETOS
-                //Toast.makeText(this, "Actividad guardada correctamente.",Toast.LENGTH_SHORT).show();
-                Toast.makeText(this, "Fecha seleccionada: " + getSelectedDate(), Toast.LENGTH_SHORT).show();
-                // AGREGAR A LA CONDICIONAL LA FECHA VALIDA
+                if(!fecha.equals("ENE 0 0")){
+                    //CODIGO DE VOLLEY SQL
+                    Map<String, String> params = new HashMap<>();
+                    params.put("", "");
+                    ControladorVolley.postJSON("/listarMaterias", params, new ControladorVolley.VolleyCallback() { //CODIGO DE PRUEBA CAMBIARLO
+                        @Override
+                        public void onSuccess(JSONObject response) {
+                            // Maneja la respuesta exitosa
+                            Log.d("RESPONSE", response.toString());
+                            Toast.makeText(RegistroActividades.this, String.valueOf(response), Toast.LENGTH_LONG).show();
+                        }
 
+                        @Override
+                        public void onError(JSONObject error) {
+                            // Maneja el error
+                            Log.e("ERROR", error.toString());
+                        }
+                    });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                }else{
+                    //FECHA DEFAULT
+                    Toast.makeText(this, "Seleccione un fecha válida", Toast.LENGTH_SHORT).show();
+                }
             } else {
                 //CAMPOS VACIOS
                 Toast.makeText(this, "Por favor, completa todos los campos.",Toast.LENGTH_SHORT).show();
-
             }
         });
 
@@ -116,7 +124,6 @@ public class RegistroActividades extends AppCompatActivity {
             finish();
         });
     }
-
 
     private String getDefaultDate()
     {
@@ -135,8 +142,6 @@ public class RegistroActividades extends AppCompatActivity {
                 selectedYear = year;
                 selectedMonth = month;
                 selectedDay = day;
-
-                Toast.makeText(RegistroActividades.this, "Fecha seleccionada: " + day + "/" + month + "/" + year, Toast.LENGTH_SHORT).show();
 
                 String date = makeDateString(day, month, year);
                 dateButton.setText(date);
@@ -189,6 +194,35 @@ public class RegistroActividades extends AppCompatActivity {
         return "ENE";
     }
 
+    private int getNumberMonth(String month)
+    {
+        if(month.equals("ENE"))
+            return 1;
+        if(month.equals("FEB"))
+            return 2;
+        if(month.equals("MAR"))
+            return 3;
+        if(month.equals("ABR"))
+            return 4;
+        if(month.equals("MAY"))
+            return 5;
+        if(month.equals("JUN"))
+            return 6;
+        if(month.equals("JUL"))
+            return 7;
+        if(month.equals("AGO"))
+            return 8;
+        if(month.equals("SEP"))
+            return 9;
+        if(month.equals("OCT"))
+            return 10;
+        if(month.equals("NOV"))
+            return 11;
+        if(month.equals("DIC"))
+            return 12;
+        return 1;
+    }
+
     public String getSelectedDate() {
         return makeDateString(selectedDay, selectedMonth, selectedYear);
     }
@@ -197,4 +231,5 @@ public class RegistroActividades extends AppCompatActivity {
     {
         datePickerDialog.show();
     }
+
 }
