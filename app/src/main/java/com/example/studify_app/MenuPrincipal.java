@@ -59,6 +59,7 @@ public class MenuPrincipal extends AppCompatActivity {
             startActivity(intent);
         }); //ACCION CUANDO USUARIO CLIQUEE EN BTN REGISTRO MATERIAS
 
+
         btnRegistroActividades.setOnClickListener(view -> {
             Intent intent = new Intent(MenuPrincipal.this, RegistroActividades.class);
             intent.putExtra("usuario", usuario);
