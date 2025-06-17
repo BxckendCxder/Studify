@@ -25,8 +25,8 @@ import java.util.Map;
 public class MenuPrincipal extends AppCompatActivity {
     //MENU PRINCIPAL DE LA APP
     //PRUEBA 1
-    Button btnRegistroMaterias, btnRegistroActividades, btnControlCalificaciones,
-            btnMaterias,btnActividades,btnCalificaciones,btnSalir;
+    Button btnRegistroMaterias, btnRegistroActividades,
+            btnMaterias,btnActividades,btnSalir;
 
     String usuario, pass;
 
@@ -45,10 +45,10 @@ public class MenuPrincipal extends AppCompatActivity {
 
         btnRegistroMaterias = findViewById(R.id.btnRegistroMaterias);
         btnRegistroActividades = findViewById(R.id.btnRegistroActividades);
-        btnControlCalificaciones = findViewById(R.id.btnControlCalificaciones);
+
         btnMaterias = findViewById(R.id.btnMaterias);
         btnActividades = findViewById(R.id.btnActividades);
-        btnCalificaciones = findViewById(R.id.btnCalificaciones);
+
         btnSalir = findViewById(R.id.btnSalir);
 
 
@@ -88,12 +88,7 @@ public class MenuPrincipal extends AppCompatActivity {
             });
         });
 
-        btnControlCalificaciones.setOnClickListener(view -> {
-            Intent intent = new Intent(this, ControlCalificaciones.class);
-            intent.putExtra("usuario", usuario);
-            intent.putExtra("password", pass);
-            startActivity(intent);
-        });
+
 
         btnMaterias.setOnClickListener(view -> {
             Intent intent = new Intent(this, VistaMaterias.class);
@@ -131,12 +126,7 @@ public class MenuPrincipal extends AppCompatActivity {
 
         });
 
-        btnCalificaciones.setOnClickListener(view -> {
-            Intent intent = new Intent(this, VistaCalificaciones.class);
-            intent.putExtra("usuario", usuario);
-            intent.putExtra("password", pass);
-            startActivity(intent);
-        });
+
 
         btnSalir.setOnClickListener(view -> {
             Intent intent = new Intent(this, MainActivity.class);

@@ -16,12 +16,12 @@
 
         <activity android:name=".MenuPrincipal"/>
         <activity android:name=".RegistroMaterias"/>
-        <activity android:name=".ControlCalificaciones"/>
+
         <activity android:name=".RegistroActividades"/>
         <activity android:name=".RegisterActivity"/>
         <activity android:name=".VistaMaterias"/>
         <activity android:name=".VistaActividades"/>
-        <activity android:name=".VistaCalificaciones"/>
+
 
         <activity
             android:name=".MainActivity"
