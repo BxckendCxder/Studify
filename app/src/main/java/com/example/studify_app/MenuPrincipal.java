@@ -52,71 +52,41 @@ public class MenuPrincipal extends AppCompatActivity {
         btnSalir = findViewById(R.id.btnSalir);
 
 
-        btnRegistroMaterias.setOnClickListener(view -> {
+        btnRegistroMaterias.setOnClickListener(view -> { //ACCION CUANDO USUARIO CLIQUEE EN BTN REGISTRO MATERIAS
             Intent intent = new Intent(MenuPrincipal.this, RegistroMaterias.class);
             intent.putExtra("usuario", usuario);
             intent.putExtra("password", pass);
             startActivity(intent);
-        }); //ACCION CUANDO USUARIO CLIQUEE EN BTN REGISTRO MATERIAS
+        });
 
 
-        btnRegistroActividades.setOnClickListener(view -> {
+        btnRegistroActividades.setOnClickListener(view -> { //ACCION CUANDO USUARIO CLIQUEE BTN REGISTRO ACTIVIDADES
             Intent intent = new Intent(MenuPrincipal.this, RegistroActividades.class);
             intent.putExtra("usuario", usuario);
             intent.putExtra("password", pass);
 
-            JSONObject postData = new JSONObject();
-            try {
-                postData.put("usuario", usuario);
-                postData.put("password", pass);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            Map<String, String> params = new HashMap<>();
+            params.put("usuario", usuario);
+            params.put("password", pass);
 
-            // URL del servidor
-            String url = "http://192.168.0.12:5000/listarMaterias";
-
-            // Crear la solicitud
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-                    Request.Method.POST,
-                    url,
-                    postData,
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            try {
-                                lista = response.getString("Lista").toString();
-                            }catch(Exception e){
-                                Log.d("ERROR", e.toString());
-                            }
-                            intent.putExtra("lista", lista);
-                            startActivity(intent);
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            // Manejar error
-                            Log.e("ERROR", error.toString());
-                            if((error.toString()).equals("com.android.volley.TimeoutError")){
-                                Toast.makeText(MenuPrincipal.this, String.valueOf("El tiempo de espera para conectarse a la DB ha expirado"), Toast.LENGTH_LONG).show();
-                            }else{
-                                String errorDesc = "Error desconocido; ".concat(error.toString());
-                                Toast.makeText(MenuPrincipal.this, String.valueOf(errorDesc), Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    }
-            ) {
+            ControladorVolley.postJSON("/listarMaterias", params, new ControladorVolley.VolleyCallback() {
                 @Override
-                public Map<String, String> getHeaders() {
-                    Map<String, String> headers = new HashMap<>();
-                    headers.put("Content-Type", "application/json");
-                    return headers;
+                public void onSuccess(JSONObject response) {
+                    try {
+                        lista = response.getString("Lista").toString();
+                    }catch(Exception e){
+                        Log.d("ERROR", e.toString());
+                    }
+                    intent.putExtra("lista", lista);
+                    startActivity(intent);
                 }
-            };
-            RequestQueue queue = Volley.newRequestQueue(MenuPrincipal.this);
-            queue.add(jsonObjectRequest);
-        });//ACCION CUANDO USUARIO CLIQUEE BTN REGISTRO ACTIVIDADES
+                @Override
+                public void onError(JSONObject error) {
+                    // Maneja el error
+                    Log.e("ERROR", error.toString());
+                }
+            });
+        });
 
         btnControlCalificaciones.setOnClickListener(view -> {
             Intent intent = new Intent(this, ControlCalificaciones.class);
