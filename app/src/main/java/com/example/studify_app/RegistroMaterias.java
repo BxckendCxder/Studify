@@ -79,7 +79,7 @@ public class RegistroMaterias extends AppCompatActivity {
                 }
 
                 // URL del servidor
-                String url = "http://192.168.0.12:5000/RegistrarMateria";
+                String url = "http://192.168.0.12:5000/RegistrarMateria"; //MALUCO
 
                 // Crear la solicitud
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
