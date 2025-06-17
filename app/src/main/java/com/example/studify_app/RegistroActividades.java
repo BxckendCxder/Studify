@@ -90,13 +90,26 @@ public class RegistroActividades extends AppCompatActivity {
                 if(!fecha.equals("ENE 0 0")){
                     //CODIGO DE VOLLEY SQL
                     Map<String, String> params = new HashMap<>();
-                    params.put("", "");
-                    ControladorVolley.postJSON("/listarMaterias", params, new ControladorVolley.VolleyCallback() { //CODIGO DE PRUEBA CAMBIARLO
+                    params.put("Materia", MateriaString);
+                    params.put("Descripcion", DescripcionString);
+                    params.put("Fecha", fecha);
+                    params.put("Categoria", CategoriaString);
+                    ControladorVolley.postJSON("/AgregarActividad", params, new ControladorVolley.VolleyCallback() { //CODIGO DE PRUEBA CAMBIARLO
                         @Override
                         public void onSuccess(JSONObject response) {
                             // Maneja la respuesta exitosa
-                            Log.d("RESPONSE", response.toString());
-                            Toast.makeText(RegistroActividades.this, String.valueOf(response), Toast.LENGTH_LONG).show();
+                            String respuesta;
+                            try{
+                                respuesta = response.getString("EstadoComms");
+                                if (respuesta.equals("OK")){
+                                    Toast.makeText(RegistroActividades.this, String.valueOf("Actividad agregada correctamente"), Toast.LENGTH_LONG).show();
+                                    edtxtDescripcion.setText("");
+                                }else{
+                                    Toast.makeText(RegistroActividades.this, String.valueOf(response), Toast.LENGTH_LONG).show();
+                                }
+                            }catch (Exception e){
+                                Log.d("ERROR", response.toString());
+                            }
                         }
 
                         @Override
@@ -192,35 +205,6 @@ public class RegistroActividades extends AppCompatActivity {
         if(month == 12)
             return "DIC";
         return "ENE";
-    }
-
-    private int getNumberMonth(String month)
-    {
-        if(month.equals("ENE"))
-            return 1;
-        if(month.equals("FEB"))
-            return 2;
-        if(month.equals("MAR"))
-            return 3;
-        if(month.equals("ABR"))
-            return 4;
-        if(month.equals("MAY"))
-            return 5;
-        if(month.equals("JUN"))
-            return 6;
-        if(month.equals("JUL"))
-            return 7;
-        if(month.equals("AGO"))
-            return 8;
-        if(month.equals("SEP"))
-            return 9;
-        if(month.equals("OCT"))
-            return 10;
-        if(month.equals("NOV"))
-            return 11;
-        if(month.equals("DIC"))
-            return 12;
-        return 1;
     }
 
     public String getSelectedDate() {
