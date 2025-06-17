@@ -88,6 +88,7 @@ public class RegistroActividades extends AppCompatActivity {
             if (!DescripcionString.isEmpty() && !CategoriaString.isEmpty() && !MateriaString.isEmpty() ) {
                 //CAMPOS COMPLETOS
                 if(!fecha.equals("ENE 0 0")){
+
                     //CODIGO DE VOLLEY SQL
                     Map<String, String> params = new HashMap<>();
                     params.put("Materia", MateriaString);
