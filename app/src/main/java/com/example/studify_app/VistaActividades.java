@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class VistaActividades extends AppCompatActivity {
 
     Spinner SpinVistaCategorias;
-    TextView txtvNombreActividad,txtvFechaEntrega,txtvMateria;
+
     Button btnRMenuPrincipal6;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,9 +21,8 @@ public class VistaActividades extends AppCompatActivity {
         setContentView(R.layout.vista_actividades);
 
         SpinVistaCategorias = findViewById(R.id.SpinnerMaterias);
-        txtvNombreActividad = findViewById(R.id.txtvTitutoCalificaciones);
-        txtvFechaEntrega = findViewById(R.id.txtvFechaEntrega);
-        txtvMateria = findViewById(R.id.txtvMateria);
+
+
 
 
 

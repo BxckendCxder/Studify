@@ -82,43 +82,46 @@ public class RegistroActividades extends AppCompatActivity {
             String CategoriaString = SpinCategoria.getSelectedItem().toString().trim();
             String MateriaString = SpinMateria.getSelectedItem().toString().trim();
             String fecha = getSelectedDate();
-
-
             // Validación
-            if (!DescripcionString.isEmpty() && !CategoriaString.isEmpty() && !MateriaString.isEmpty() ) {
+            if (!DescripcionString.isEmpty() && !CategoriaString.isEmpty()) {
                 //CAMPOS COMPLETOS
-                if(!fecha.equals("ENE 0 0")){
-
-                    //CODIGO DE VOLLEY SQL
-                    Map<String, String> params = new HashMap<>();
-                    params.put("Materia", MateriaString);
-                    params.put("Descripcion", DescripcionString);
-                    params.put("Fecha", fecha);
-                    params.put("Categoria", CategoriaString);
-                    ControladorVolley.postJSON("/AgregarActividad", params, new ControladorVolley.VolleyCallback() { //CODIGO DE PRUEBA CAMBIARLO
-                        @Override
-                        public void onSuccess(JSONObject response) {
-                            // Maneja la respuesta exitosa
-                            String respuesta;
-                            try{
-                                respuesta = response.getString("EstadoComms");
-                                if (respuesta.equals("OK")){
-                                    Toast.makeText(RegistroActividades.this, String.valueOf("Actividad agregada correctamente"), Toast.LENGTH_LONG).show();
-                                    edtxtDescripcion.setText("");
-                                }else{
-                                    Toast.makeText(RegistroActividades.this, String.valueOf(response), Toast.LENGTH_LONG).show();
+                if(!fecha.equals("JAN 0 0")){
+                    if(!MateriaString.isEmpty()){
+                        //CODIGO DE VOLLEY SQL
+                        Map<String, String> params = new HashMap<>();
+                        params.put("Materia", MateriaString);
+                        params.put("Descripcion", DescripcionString);
+                        params.put("Fecha", fecha);
+                        params.put("Categoria", CategoriaString);
+                        ControladorVolley.postJSON("/AgregarActividad", params, new ControladorVolley.VolleyCallback() {
+                            @Override
+                            public void onSuccess(JSONObject response) {
+                                // Maneja la respuesta exitosa
+                                String respuesta;
+                                try{
+                                    respuesta = response.getString("EstadoComms");
+                                    if (respuesta.equals("OK")){
+                                        Toast.makeText(RegistroActividades.this, String.valueOf("Actividad agregada correctamente"), Toast.LENGTH_LONG).show();
+                                        edtxtDescripcion.setText("");
+                                    }else{
+                                        Log.d("ERROR", response.toString());
+                                    }
+                                }catch (Exception e){
+                                    Log.d("ERROR", response.toString());
                                 }
-                            }catch (Exception e){
-                                Log.d("ERROR", response.toString());
                             }
-                        }
 
-                        @Override
-                        public void onError(JSONObject error) {
-                            // Maneja el error
-                            Log.e("ERROR", error.toString());
-                        }
-                    });
+                            @Override
+                            public void onError(JSONObject error) {
+                                // Maneja el error
+                                Log.e("ERROR", error.toString());
+                            }
+                        });
+                    }else{
+                        edtxtDescripcion.setText("");
+                        Toast.makeText(this, "No existe ninguna materia, por favor cree una", Toast.LENGTH_SHORT).show();
+                    }
+
 
                 }else{
                     //FECHA DEFAULT
@@ -182,13 +185,13 @@ public class RegistroActividades extends AppCompatActivity {
     private String getMonthFormat(int month)
     {
         if(month == 1)
-            return "ENE";
+            return "JAN";
         if(month == 2)
             return "FEB";
         if(month == 3)
             return "MAR";
         if(month == 4)
-            return "ABR";
+            return "APR";
         if(month == 5)
             return "MAY";
         if(month == 6)
@@ -196,7 +199,7 @@ public class RegistroActividades extends AppCompatActivity {
         if(month == 7)
             return "JUL";
         if(month == 8)
-            return "AGO";
+            return "AUG";
         if(month == 9)
             return "SEP";
         if(month == 10)
@@ -204,8 +207,8 @@ public class RegistroActividades extends AppCompatActivity {
         if(month == 11)
             return "NOV";
         if(month == 12)
-            return "DIC";
-        return "ENE";
+            return "DEC";
+        return "JAN";
     }
 
     public String getSelectedDate() {
