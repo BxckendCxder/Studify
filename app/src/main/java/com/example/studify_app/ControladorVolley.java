@@ -15,7 +15,7 @@ import java.util.Map;
 public class ControladorVolley {
         private static ControladorVolley instance;
         private static RequestQueue requestQueue;
-        private static final String BASE_URL = "http://192.168.0.12:5000";
+        private static final String BASE_URL = "http://192.168.1.225:5000";
 
         private ControladorVolley(Context context) {
             requestQueue = Volley.newRequestQueue(context.getApplicationContext());

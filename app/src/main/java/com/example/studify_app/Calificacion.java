@@ -3,18 +3,18 @@ package com.example.studify_app;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Calificacion  {
-    private String nombre;
+    private String nombreEvaluacion;
     private double nota;
     private double ponderacion;
 
-    public Calificacion(String nombre, double nota, double ponderacion) {
-        this.nombre = nombre;
+    public Calificacion(String nombreEvaluacion, double nota, double ponderacion) {
+        this.nombreEvaluacion = nombreEvaluacion;
         this.nota = nota;
         this.ponderacion = ponderacion;
     }
 
     public String getNombre() {
-        return nombre;
+        return nombreEvaluacion;
     }
 
     public double getNota() {
