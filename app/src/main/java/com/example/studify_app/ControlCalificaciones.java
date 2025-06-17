@@ -59,19 +59,19 @@ public class ControlCalificaciones extends AppCompatActivity {
             String Nota = edtxtNota.getText().toString().trim();
             String Ponderacion = edtxtPonderacion.getText().toString().trim();
 
-            /*
+
             if (!Materia.isEmpty() && !NombreActividad.isEmpty() && !Nota.isEmpty() && !Ponderacion.isEmpty()) {
                 Toast.makeText(this, "Actividad guardada correctamente.",Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "Por favor, completa todos los campos.",Toast.LENGTH_SHORT).show();
 
                 // Aquí podrías crear el objeto Calificacion
-                double nota = Double.parseDouble(Nota);
-                double ponderacion = Double.parseDouble(Ponderacion);
+                nota = Double.parseDouble(Nota);
+                ponderacion = Double.parseDouble(Ponderacion);
                 Calificacion nueva = new Calificacion(NombreActividad, nota, ponderacion);
 
                 // Aquí podrías guardar en una lista o enviar a otra actividad
-            }*/
+            }
         });
 
 
