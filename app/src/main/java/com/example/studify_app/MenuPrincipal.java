@@ -99,7 +99,28 @@ public class MenuPrincipal extends AppCompatActivity {
             Intent intent = new Intent(this, VistaMaterias.class);
             intent.putExtra("usuario", usuario);
             intent.putExtra("password", pass);
-            startActivity(intent);
+
+            Map<String, String> params = new HashMap<>();
+            params.put("usuario", usuario);
+            params.put("password", pass);
+
+            ControladorVolley.postJSON("/listarMaterias", params, new ControladorVolley.VolleyCallback() {
+                @Override
+                public void onSuccess(JSONObject response) {
+                    try {
+                        lista = response.getString("Lista").toString();
+                    }catch(Exception e){
+                        Log.d("ERROR", e.toString());
+                    }
+                    intent.putExtra("lista", lista);
+                    startActivity(intent);
+                }
+                @Override
+                public void onError(JSONObject error) {
+                    // Maneja el error
+                    Log.e("ERROR", error.toString());
+                }
+            });
         });
 
         btnActividades.setOnClickListener(view -> {
