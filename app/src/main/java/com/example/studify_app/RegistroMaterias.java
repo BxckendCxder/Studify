@@ -66,79 +66,45 @@ public class RegistroMaterias extends AppCompatActivity {
             horario = edtxtHorario.getText().toString().trim();
 
             if(!nombreMat.isEmpty() && !nombreProf.isEmpty() && !horario.isEmpty()){
-                //CAMPOS LLENOS
-                JSONObject postData = new JSONObject();
-                try {
-                    postData.put("usuario", usuario);
-                    postData.put("password", pass);
-                    postData.put("NombreMat", nombreMat);
-                    postData.put("NombreProf", nombreProf);
-                    postData.put("Horario", horario);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                Map<String, String> params = new HashMap<>();
+                params.put("usuario", usuario);
+                params.put("password", pass);
+                params.put("NombreMat", nombreMat);
+                params.put("NombreProf", nombreProf);
+                params.put("Horario", horario);
 
-                // URL del servidor
-                String url = "http://192.168.0.12:5000/RegistrarMateria"; //MALUCO
-
-                // Crear la solicitud
-                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-                        Request.Method.POST,
-                        url,
-                        postData,
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                try{
-                                    String respuesta = response.get("EstadoComms").toString();
-                                    if (respuesta.equals("Materia agregada correctamente")){
-                                        Toast.makeText(RegistroMaterias.this, String.valueOf("La materia fue agregada exitosamente"), Toast.LENGTH_LONG).show();
-                                        edtxtNombreMateria.setText("");
-                                        edtxtNombreProfesor.setText("");
-                                        edtxtHorario.setText("");
-                                    }else{
-                                        Toast.makeText(RegistroMaterias.this, String.valueOf("Ocurrió un error"), Toast.LENGTH_LONG).show();
-                                        edtxtNombreMateria.setText("");
-                                        edtxtNombreProfesor.setText("");
-                                        edtxtHorario.setText("");
-                                    }
-                                }catch (Exception e){
-                                    Log.d("ERROR", e.toString());
-                                }
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                // Manejar error
-                                Log.e("ERROR", error.toString());
-                                if((error.toString()).equals("com.android.volley.TimeoutError")){
-                                    Toast.makeText(RegistroMaterias.this, String.valueOf("El tiempo de espera para conectarse a la DB ha expirado"), Toast.LENGTH_LONG).show();
-                                }else{
-                                    String errorDesc = "Error desconocido; ".concat(error.toString());
-                                    Toast.makeText(RegistroMaterias.this, String.valueOf(errorDesc), Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        }
-                ) {
+                ControladorVolley.postJSON("/RegistrarMateria", params, new ControladorVolley.VolleyCallback() {
                     @Override
-                    public Map<String, String> getHeaders() {
-                        Map<String, String> headers = new HashMap<>();
-                        headers.put("Content-Type", "application/json");
-                        return headers;
+                    public void onSuccess(JSONObject response) {
+                        // Maneja la respuesta exitosa
+                        try{
+                            String respuesta = response.get("EstadoComms").toString();
+                            if (respuesta.equals("Materia agregada correctamente")){
+                                Toast.makeText(RegistroMaterias.this, String.valueOf("La materia fue agregada exitosamente"), Toast.LENGTH_LONG).show();
+                                edtxtNombreMateria.setText("");
+                                edtxtNombreProfesor.setText("");
+                                edtxtHorario.setText("");
+                            }else{
+                                Toast.makeText(RegistroMaterias.this, String.valueOf("Ocurrió un error"), Toast.LENGTH_LONG).show();
+                                edtxtNombreMateria.setText("");
+                                edtxtNombreProfesor.setText("");
+                                edtxtHorario.setText("");
+                            }
+                        }catch (Exception e){
+                            Log.d("ERROR", e.toString());
+                        }
                     }
-                };
-                RequestQueue queue = Volley.newRequestQueue(RegistroMaterias.this);
-                queue.add(jsonObjectRequest);
 
+                    @Override
+                    public void onError(JSONObject error) {
+                        // Maneja el error
+                        Log.e("ERROR", error.toString());
+                        }
+                });
             }else{
                 //CAMPOS VACIOS
                 Toast.makeText(RegistroMaterias.this, String.valueOf("Los campos no pueden estar vacios"), Toast.LENGTH_LONG).show();
             }
-
         });
-
-
-
     }
 }

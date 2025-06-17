@@ -48,14 +48,6 @@ public class MainActivity extends AppCompatActivity {
             String pass = edtxtContrasena.getText().toString().trim();
 
             if (!usuario.isEmpty()&&!pass.isEmpty()){
-                JSONObject postData = new JSONObject();
-                try {
-                    postData.put("usuario", usuario);
-                    postData.put("password", pass);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
                 Map<String, String> params = new HashMap<>();
                 params.put("usuario", usuario);
                 params.put("password", pass);
