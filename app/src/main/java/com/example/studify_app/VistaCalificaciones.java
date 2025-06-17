@@ -23,12 +23,13 @@ public class VistaCalificaciones extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.vista_calificaciones);
 
+        mostrarCalificaciones();
+
         tableCalificaciones = findViewById(R.id.tableCalificaciones);
 
 
 
         btnRMenuPrincipal7 = findViewById(R.id.btnRMenuPrincipal4);
-
 
         btnRMenuPrincipal7.setOnClickListener(view -> {
             Intent intent = new Intent(VistaCalificaciones.this, MenuPrincipal.class);
@@ -36,12 +37,25 @@ public class VistaCalificaciones extends AppCompatActivity {
             finish(); // opcional: para cerrar esta pantalla
         });
 
-
-
-
-
-
     }
+
+    private void mostrarCalificaciones() {
+        TableRow header = new TableRow(this);
+        header.addView(crearCelda("Actividad"));
+        header.addView(crearCelda("Nota"));
+        header.addView(crearCelda("Ponderación"));
+        tableCalificaciones.addView(header);
+
+        for (Calificacion cal : ControlCalificaciones.listaCalificaciones) {
+            TableRow fila = new TableRow(this);
+            fila.addView(crearCelda(cal.getNombre()));
+            fila.addView(crearCelda(String.valueOf(cal.getNota())));
+            fila.addView(crearCelda(String.valueOf(cal.getPonderacion()) + "%"));
+            tableCalificaciones.addView(fila);
+        }
+    }
+
+
 
     private View crearCelda(String texto) {
 

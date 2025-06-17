@@ -32,7 +32,8 @@ public class VistaMaterias extends AppCompatActivity {
         // Dividir por comas y espacios
         String[] materias = listaMat.split(",\\s*"); //LISTA DE MATERIAS, AGREGA EL ADAPTADOR
 
-        Log.e("ERROR", Arrays.toString(materias)); //QUITAR
+
+       // Log.e("ERROR", Arrays.toString(materias)); //QUITAR
 
         SpinVistaMaterias = findViewById(R.id.SpinnerMaterias);
         txtvProfesor = findViewById(R.id.txtvTitutoCalificaciones);
