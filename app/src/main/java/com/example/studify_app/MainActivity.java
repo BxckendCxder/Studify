@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
                         try {
                             String respuesta = response.get("EstadoComms").toString();
                             if(respuesta.equals("UsuarioExiste")){
-                                Toast.makeText(MainActivity.this, String.valueOf("Ingresando"), Toast.LENGTH_LONG).show();
                                 Log.d("RESPONSE", respuesta);
                                 Intent intent = new Intent(MainActivity.this, MenuPrincipal.class);
                                 intent.putExtra("usuario", usuario);

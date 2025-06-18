@@ -129,10 +129,42 @@ public class MenuPrincipal extends AppCompatActivity {
         });
 
         btnActividades.setOnClickListener(view -> {
-            Intent intent = new Intent(this, VistaActividades.class);
-            intent.putExtra("usuario", usuario);
-            intent.putExtra("password", pass);
-            startActivity(intent);
+            Map<String, String> params = new HashMap<>();
+            params.put("usuario", usuario);
+            params.put("password", pass);
+
+            ControladorVolley.postJSON("/listarMaterias", params, new ControladorVolley.VolleyCallback() {
+                @Override
+                public void onSuccess(JSONObject response) {
+                    String estado = "";
+                    try{
+                        estado = response.getString("EstadoComms");
+                    }catch (Exception e){
+                        Log.d("ERROR", e.toString());
+                    }
+
+                    if(estado.equals("OK")){
+                        try {
+                            lista = response.getString("Lista").toString();
+                            Log.d("ERROR", response.toString());
+                        }catch(Exception e){
+                            Log.d("ERROR", e.toString());
+                        }
+                        Intent intent = new Intent(MenuPrincipal.this, VistaActividades.class);
+                        intent.putExtra("usuario", usuario);
+                        intent.putExtra("password", pass);
+                        intent.putExtra("lista", lista);
+                        startActivity(intent);
+                    }else{
+                        Toast.makeText(MenuPrincipal.this, String.valueOf("No existe ninguna materia, por favor cree una"), Toast.LENGTH_LONG).show();
+                    }
+                }
+                @Override
+                public void onError(JSONObject error) {
+                    // Maneja el error
+                    Log.e("ERROR", error.toString());
+                }
+            });
 
         });
 
