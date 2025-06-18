@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -60,7 +61,31 @@ public class VistaActividades extends AppCompatActivity {
         SpinVistaMaterias.setAdapter(adapter);
 
         //PROCESO PARA RECYCLER
-        adaptador = new AdaptadorActividades(this, listaFiltrada);
+        adaptador = new AdaptadorActividades(this, listaFiltrada, new AdaptadorActividades.OnEliminarClickListener() {
+            @Override
+            public void onEliminarClick(Actividad actividad, int posicion) {
+                // Aquí haces la petición Volley para eliminar la actividad de la DB
+                Map<String, String> params = new HashMap<>();
+                params.put("NombreMat", actividad.getNombre());
+                params.put("Categoria", actividad.getCategoria());
+                params.put("Descripcion", actividad.getDescripcion());
+                Log.e("ERROR", params.toString());
+
+                ControladorVolley.postJSON("/EliminarActividad", params, new ControladorVolley.VolleyCallback() {
+                    @Override
+                    public void onSuccess(JSONObject response) {
+                        listaFiltrada.remove(posicion);
+                        adaptador.notifyItemRemoved(posicion);
+                    }
+
+                    @Override
+                    public void onError(JSONObject error) {
+                        Toast.makeText(VistaActividades.this, "Error al eliminar", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+
         recyclerView.setAdapter(adaptador);
 
         SpinVistaMaterias.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -84,8 +109,8 @@ public class VistaActividades extends AppCompatActivity {
                                 Actividad m = new Actividad(
                                         obj.getString("NombreMat"),
                                         obj.getString("Categoria"),
-                                        obj.getString("Descripcion"),
-                                        obj.getString("FechaEntrega")
+                                        obj.getString("FechaEntrega"),
+                                        obj.getString("Descripcion")
                                 );
                                 listaFiltrada.add(m);
                             }

@@ -16,9 +16,18 @@ public class AdaptadorActividades extends RecyclerView.Adapter<AdaptadorActivida
 
     private Context context;
 
-    public AdaptadorActividades(Context context, List<Actividad> listaMaterias) {
+    private OnEliminarClickListener eliminarListener;
+
+
+    public interface OnEliminarClickListener {
+        void onEliminarClick(Actividad actividad, int posicion);
+    }
+
+
+    public AdaptadorActividades(Context context, List<Actividad> listaMaterias, OnEliminarClickListener listener) {
         this.context = context;
         this.listaMaterias = listaMaterias;
+        this.eliminarListener = listener;
     }
 
     @NonNull
@@ -46,6 +55,13 @@ public class AdaptadorActividades extends RecyclerView.Adapter<AdaptadorActivida
 
             notifyItemRangeChanged(position, listaMaterias.size());
         });
+
+        holder.btnEliminar.setOnClickListener(v -> {
+            if (eliminarListener != null) {
+                eliminarListener.onEliminarClick(materia, position);
+            }
+        });
+
     }
 
     @Override
